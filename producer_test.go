@@ -2,7 +2,7 @@ package datastorex_test
 
 import (
 	"testing"
-	"github.com/drborges/gogae/goexpect"
+	"github.com/drborges/goexpect"
 	"github.com/drborges/datastorex"
 )
 

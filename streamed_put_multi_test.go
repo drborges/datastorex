@@ -4,7 +4,7 @@ import (
 	"testing"
 	"github.com/drborges/datastorex"
 	"github.com/drborges/gostream"
-	"github.com/drborges/gogae/goexpect"
+	"github.com/drborges/goexpect"
 	"appengine/aetest"
 	"appengine"
 )

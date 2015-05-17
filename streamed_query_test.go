@@ -5,7 +5,7 @@ import (
 	"appengine/aetest"
 	"appengine/datastore"
 	"github.com/drborges/datastorex"
-	"github.com/drborges/gogae/goexpect"
+	"github.com/drborges/goexpect"
 )
 
 func TestStream(t *testing.T) {
