@@ -1,19 +1,19 @@
 package datastorex_test
 
 import (
-	"testing"
-	"github.com/drborges/datastorex"
-	"github.com/drborges/gostream"
-	"github.com/drborges/goexpect"
-	"appengine/aetest"
 	"appengine"
+	"appengine/aetest"
+	"github.com/drborges/datastorex"
+	"github.com/drborges/goexpect"
+	"github.com/drborges/gostream"
+	"testing"
 )
 
 var (
 	batchSize = 2
-	userA = User{"UserA"}
-	userB = User{"UserB"}
-	userC = User{"UserC"}
+	userA     = User{"UserA"}
+	userB     = User{"UserB"}
+	userC     = User{"UserC"}
 )
 
 func produceUsers(c appengine.Context, in gostream.DataChannel, users ...User) {

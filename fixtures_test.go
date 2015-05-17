@@ -1,17 +1,17 @@
 package datastorex_test
 
 import (
-	"github.com/drborges/datastorex"
 	"appengine"
 	"appengine/datastore"
+	"github.com/drborges/datastorex"
 	"time"
 )
 
-type FakeDatastoreStream struct {}
+type FakeDatastoreStream struct{}
 
 func (stream FakeDatastoreStream) Next() chan datastorex.DatastoreItem {
 	out := make(chan datastorex.DatastoreItem, 2)
-	go func () {
+	go func() {
 		defer close(out)
 		out <- datastorex.DatastoreItem{}
 		out <- datastorex.DatastoreItem{}

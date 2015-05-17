@@ -1,11 +1,11 @@
 package datastorex_test
 
 import (
-	"testing"
 	"appengine/aetest"
 	"appengine/datastore"
 	"github.com/drborges/datastorex"
 	"github.com/drborges/goexpect"
+	"testing"
 )
 
 func TestStream(t *testing.T) {
@@ -17,10 +17,10 @@ func TestStream(t *testing.T) {
 	createUsers(c, "Bianca", "Diego", "Ygor")
 
 	stream := datastorex.StreamedQuery{
-		Context: c,
-		BufferSize: 3,
+		Context:        c,
+		BufferSize:     3,
 		EntityProvider: userProvider,
-		Query: datastore.NewQuery("User").Limit(1),
+		Query:          datastore.NewQuery("User").Limit(1),
 	}
 
 	items := []datastorex.Entity{}

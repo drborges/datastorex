@@ -1,15 +1,15 @@
 package datastorex
 
 import (
-	"appengine/datastore"
 	"appengine"
+	"appengine/datastore"
 )
 
 type Entity interface{}
 type EntityProvider func() Entity
 
 type DatastoreItem struct {
-	Key *datastore.Key
+	Key    *datastore.Key
 	Entity interface{}
 }
 
@@ -19,9 +19,9 @@ type Stream interface {
 }
 
 type StreamedQuery struct {
-	BufferSize int
-	Context appengine.Context
-	Query *datastore.Query
+	BufferSize     int
+	Context        appengine.Context
+	Query          *datastore.Query
 	EntityProvider EntityProvider
 }
 
@@ -32,7 +32,7 @@ func (this *StreamedQuery) Next() chan DatastoreItem {
 
 	out := make(chan DatastoreItem, this.BufferSize)
 
-	go func () {
+	go func() {
 		defer close(out)
 
 		for {
@@ -69,4 +69,3 @@ func (this *StreamedQuery) Next() chan DatastoreItem {
 
 	return out
 }
-

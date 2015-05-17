@@ -1,18 +1,18 @@
 package datastorex
 
 import (
-	"github.com/drborges/gostream"
-	"appengine/datastore"
 	"appengine"
+	"appengine/datastore"
+	"github.com/drborges/gostream"
 )
 
 type Batch struct {
-	Keys []*datastore.Key
+	Keys     []*datastore.Key
 	Entities []interface{}
 }
 
 func NewPutMultiStream(c appengine.Context, batchSize int) gostream.PipeStage {
-	pipe := func (in, out gostream.DataChannel) {
+	pipe := func(in, out gostream.DataChannel) {
 		defer close(out)
 		keys := []*datastore.Key{}
 		entities := []interface{}{}
