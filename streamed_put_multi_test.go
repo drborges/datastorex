@@ -16,7 +16,7 @@ var (
 	userC     = User{"UserC"}
 )
 
-func produceUsers(c appengine.Context, in gostream.DataChannel, users ...User) {
+func produceUsers(c appengine.Context, in chan gostream.Data, users ...User) {
 	defer close(in)
 	for _, user := range users {
 		in <- newDatastoreItem(c, user)
@@ -28,7 +28,7 @@ func TestPutMultiStream(t *testing.T) {
 	c, _ := aetest.NewContext(nil)
 	defer c.Close()
 
-	in := make(gostream.DataChannel)
+	in := make(chan gostream.Data)
 	go produceUsers(c, in, userA, userB, userC)
 
 	out := datastorex.NewPutMultiStream(c, batchSize)(in)

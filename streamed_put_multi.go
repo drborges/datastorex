@@ -12,7 +12,7 @@ type Batch struct {
 }
 
 func NewPutMultiStream(c appengine.Context, batchSize int) gostream.PipeStage {
-	pipe := func(in, out gostream.DataChannel) {
+	pipe := func(in, out chan gostream.Data) {
 		defer close(out)
 		keys := []*datastore.Key{}
 		entities := []interface{}{}
