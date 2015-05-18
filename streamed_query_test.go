@@ -6,6 +6,7 @@ import (
 	"github.com/drborges/datastorex"
 	"github.com/drborges/goexpect"
 	"testing"
+	"github.com/drborges/gostream"
 )
 
 func TestStream(t *testing.T) {
@@ -14,7 +15,7 @@ func TestStream(t *testing.T) {
 	c, _ := aetest.NewContext(nil)
 	defer c.Close()
 
-	createUsers(c, "Bianca", "Diego", "Ygor")
+	createUsers(c, "UserA", "UserB", "UserC")
 
 	stream := datastorex.StreamedQuery{
 		Context:        c,
@@ -23,18 +24,14 @@ func TestStream(t *testing.T) {
 		Query:          datastore.NewQuery("User").Limit(1),
 	}
 
-	items := []datastorex.Entity{}
+	items := []gostream.Data{}
 	for item := range stream.Next() {
 		items = append(items, item)
 	}
 
 	expect(len(items)).ToBe(3)
 
-	item0 := datastorex.DatastoreItem{newUserKey(c, "Bianca"), &User{"Bianca"}}
-	item1 := datastorex.DatastoreItem{newUserKey(c, "Diego"), &User{"Diego"}}
-	item2 := datastorex.DatastoreItem{newUserKey(c, "Ygor"), &User{"Ygor"}}
-
-	expect(item0).ToDeepEqual(items[0])
-	expect(item1).ToDeepEqual(items[1])
-	expect(item2).ToDeepEqual(items[2])
+	expect(newDatastoreItem(c, User{"UserA"})).ToDeepEqual(items[0])
+	expect(newDatastoreItem(c, User{"UserB"})).ToDeepEqual(items[1])
+	expect(newDatastoreItem(c, User{"UserC"})).ToDeepEqual(items[2])
 }

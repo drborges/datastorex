@@ -3,10 +3,10 @@ package datastorex
 import (
 	"appengine"
 	"appengine/datastore"
+	"github.com/drborges/gostream"
 )
 
-type Entity interface{}
-type EntityProvider func() Entity
+type EntityProvider func() gostream.Data
 
 type DatastoreItem struct {
 	Key    *datastore.Key

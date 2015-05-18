@@ -5,6 +5,7 @@ import (
 	"appengine/datastore"
 	"github.com/drborges/datastorex"
 	"time"
+	"github.com/drborges/gostream"
 )
 
 type FakeDatastoreStream struct{}
@@ -27,7 +28,7 @@ type User struct {
 	Name string
 }
 
-func userProvider() datastorex.Entity {
+func userProvider() gostream.Data {
 	return &User{}
 }
 
