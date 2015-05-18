@@ -14,7 +14,6 @@ type DatastoreItem struct {
 }
 
 type Stream interface {
-	BufferSize() int
 	Next() chan DatastoreItem
 }
 

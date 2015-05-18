@@ -11,7 +11,7 @@ func NewProducer(stream Stream) gostream.ProduceStage {
 	}
 
 	return func() chan gostream.Data {
-		out := make(chan gostream.Data, stream.BufferSize())
+		out := make(chan gostream.Data, 1000)
 		go produce(out)
 		return out
 	}

@@ -20,10 +20,6 @@ func (stream FakeDatastoreStream) Next() chan datastorex.DatastoreItem {
 	return out
 }
 
-func (stream FakeDatastoreStream) BufferSize() int {
-	return 2
-}
-
 type User struct {
 	Name string
 }
@@ -43,7 +39,7 @@ func createUsers(c appengine.Context, names ...string) {
 	}
 
 	// Give it some time until the entities are indexed and available to be queried
-	time.Sleep(1 * time.Second)
+	time.Sleep(400 * time.Millisecond)
 }
 
 func fetchUserByName(c appengine.Context, name string) User {
@@ -55,4 +51,12 @@ func fetchUserByName(c appengine.Context, name string) User {
 
 func newDatastoreItem(c appengine.Context, user User) datastorex.DatastoreItem {
 	return datastorex.DatastoreItem{newUserKey(c, user.Name), &user}
+}
+
+func drainChannel(stream datastorex.Stream) []gostream.Data {
+	items := []gostream.Data{}
+	for item := range stream.Next() {
+		items = append(items, item)
+	}
+	return items
 }

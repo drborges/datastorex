@@ -6,7 +6,6 @@ import (
 	"github.com/drborges/datastorex"
 	"github.com/drborges/goexpect"
 	"testing"
-	"github.com/drborges/gostream"
 )
 
 func TestStream(t *testing.T) {
@@ -17,17 +16,14 @@ func TestStream(t *testing.T) {
 
 	createUsers(c, "UserA", "UserB", "UserC")
 
-	stream := datastorex.StreamedQuery{
+	stream := &datastorex.StreamedQuery{
 		Context:        c,
 		BufferSize:     3,
 		EntityProvider: userProvider,
 		Query:          datastore.NewQuery("User").Limit(1),
 	}
 
-	items := []gostream.Data{}
-	for item := range stream.Next() {
-		items = append(items, item)
-	}
+	items := drainChannel(stream)
 
 	expect(len(items)).ToBe(3)
 
