@@ -47,6 +47,12 @@ func (this *StreamedQuery) Next() chan DatastoreItem {
 				if nextItem == datastore.Done {
 					break
 				}
+
+				if nextItem != nil {
+					this.Context.Warningf("%v", nextItem)
+					break
+				}
+
 				out <- DatastoreItem{key, entity}
 			}
 
