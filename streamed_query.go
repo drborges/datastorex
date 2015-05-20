@@ -10,7 +10,7 @@ type EntityProvider func() gostream.Data
 
 type DatastoreItem struct {
 	Key    *datastore.Key
-	Entity interface{}
+	Entity gostream.Data
 }
 
 type Stream interface {

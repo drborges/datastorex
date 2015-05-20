@@ -8,14 +8,14 @@ import (
 
 type Batch struct {
 	Keys     []*datastore.Key
-	Entities []interface{}
+	Entities []gostream.Data
 }
 
 func NewPutMultiStream(c appengine.Context, batchSize int) gostream.PipeStage {
 	pipe := func(in, out chan gostream.Data) {
 		defer close(out)
 		keys := []*datastore.Key{}
-		entities := []interface{}{}
+		entities := []gostream.Data{}
 
 		for item := range in {
 			datastoreItem := item.(DatastoreItem)
@@ -28,7 +28,7 @@ func NewPutMultiStream(c appengine.Context, batchSize int) gostream.PipeStage {
 				}
 				out <- Batch{keys, entities}
 				keys = []*datastore.Key{}
-				entities = []interface{}{}
+				entities = []gostream.Data{}
 			}
 		}
 
